@@ -1,0 +1,18 @@
+The knn-method is used for daily data to compare data from weather stations (daily resolution) with modelling data (aggregated hourly data) to find matchdays. These matchdays can be used in further steps to extend the
+timeseries with higher resolution on a historic timescale with only daily values available. Trajectories of hourly weather data can be adopted for historic time series. Furthermore the results can be used to create
+grid data based on historic point data of weather stations.
+
+data types: daily weather station data for a longer period (low resolution) as point data and hourly modelling weather data as grid data
+variables: temperature, precipitation, radiation, relative humidity, wind speed
+timescales: daily (weather station), hourly (modelling data)
+
+Neccessary steps for usage:
+1. data preparation, aggregation of weather data for same resolution (i.e. hourly to daily), interpolation of single missing values
+2. select time period for database and knn timeseries
+3. select datatype (original or standardised)
+4. select variables for distance calculation
+5. select/sort out weather stations with limited data availability
+6. knn for each station and day of knn timeseries with usage of database
+	- distance calculation to each day in database of the same month and the presence of precipitation (to account for seasonality)
+	- calculation of total distance based on sum of single distance calculation of each variable
+	- define matchday based on total distance calculation and adopt new variable values
